@@ -123,12 +123,11 @@ window.saveLocalstorage = function () {
   localStorage.setItem("arrNhanVien", strNhanVien);
 };
 
-window.LoadLocalStorage = function () {
+window.loadLocalStorage = function () {
   if (localStorage.getItem("arrNhanVien")) {
-    //[]
     let strNhanVien = localStorage.getItem("arrNhanVien");
     arrNhanVien = JSON.parse(strNhanVien);
-    renderTableNhanVien(arrNhanVien);
+    rendertableNhanVien(arrNhanVien);
   }
 };
-LoadLocalStorage();
+loadLocalStorage();
