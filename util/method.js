@@ -29,8 +29,9 @@ export function xepLoai(gioLam) {
 }
 export function stringToSlug(title) {
   //Đổi chữ hoa thành chữ thường
+  // console.log("check", title.toLowerCase());
   let slug = title.toLowerCase();
-  //Đổi ký tự có dấu thành không dấu
+  // Đổi ký tự có dấu thành không dấu
   slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, "a");
   slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, "e");
   slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, "i");
@@ -57,3 +58,6 @@ export function stringToSlug(title) {
 
   return slug;
 }
+// let strNhanVien = localStorage.getItem("arrNhanVien");
+//     arrNhanVien = JSON.parse(strNhanVien);
+//     rendertableNhanVien(arrNhanVien);

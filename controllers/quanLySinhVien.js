@@ -37,7 +37,8 @@ window.rendertableNhanVien = function (arrNV) {
           <td>${nv.tongLuong}</td>
           <td>${nv.loaiNhanVien}</td>
           <td>
-            <button class="btn btn-primary" onclick="chinhSua('${nv.taiKhoan}')">Chỉnh sửa</button>
+            <button class="btn btn-primary"  data-toggle="modal"
+                    data-target="#myModal" onclick="chinhSua('${nv.taiKhoan}')">Chỉnh sửa</button>
             <button class="btn btn-danger" onclick="xoaNhanVien('${nv.taiKhoan}')">Xóa</button>
             </td>
       </tr>
@@ -62,12 +63,18 @@ window.chinhSua = (taiKhoan) => {
   document.querySelector("#taiKhoan").disabled = true;
   let nvUpdate = arrNhanVien.find((nv) => nv.taiKhoan === taiKhoan);
   console.log(nvUpdate);
+  console.log(nvUpdate.gioLam);
   if (nvUpdate) {
     //load nhân viên lên thẻ form
     for (let key in nvUpdate) {
-      console.log(key);
-      console.log(nvUpdate[key]);
-      document.querySelector(`#${key}`).value = nvUpdate[key];
+      console.log(key, nvUpdate[key]);
+      // document.querySelector(`#${key}`).value = nvUpdate[key];
+      let inputElement = document.querySelector(`#${key}`);
+      if (inputElement) {
+        inputElement.value = nvUpdate[key];
+      } else {
+        console.log(`No input element found with id: ${key}`);
+      }
     }
   }
 };
@@ -94,21 +101,21 @@ document.querySelector("#btnCapNhat").onclick = function (e) {
   }
 };
 
-// document.querySelector("#btnTimNV").onclick = function (e) {
-//   e.preventDefault();
-//   // console.log(123);
-//   //input: keyword
-//   let tuKhoa = document.querySelector("#searchName").value;
-//   tuKhoa = stringToSlug(tuKhoa);
-//   let arrNVTimKiem = [];
-//   //output: arr được filter theo từ khóa
-//   arrNVTimKiem = arrNhanVien.filter(
-//     (nv) => stringToSlug(nv.xepLoai).search(tuKhoa) !== -1
-//   );
-//   console.log(arrNVTimKiem);
-//   //sau khi filter thì dùng mảng kết quả render lại table
-//   rendertableNhanVien(arrNVTimKiem);
-// };
+document.querySelector("#btnTimNV").onclick = function (e) {
+  e.preventDefault();
+  // console.log(123);
+  //input: keyword
+  let tuKhoa = document.querySelector("#searchName").value;
+  tuKhoa = stringToSlug(tuKhoa);
+  let arrNVTimKiem = [];
+  //output: arr được filter theo từ khóa
+  arrNVTimKiem = arrNhanVien.filter(
+    (nv) => stringToSlug(nv.xepLoai).search(tuKhoa) !== -1
+  );
+  console.log(arrNVTimKiem);
+  //sau khi filter thì dùng mảng kết quả render lại table
+  rendertableNhanVien(arrNVTimKiem);
+};
 window.saveLocalstorage = function () {
   //Biến đổi mảng thành string [] => "[]"
   let strNhanVien = JSON.stringify(arrNhanVien);
@@ -116,12 +123,12 @@ window.saveLocalstorage = function () {
   localStorage.setItem("arrNhanVien", strNhanVien);
 };
 
-window.LoadLocalStorage = function () {
-  if (localStorage.getItem("arrNhanVien")) {
-    //[]
-    let strNhanVien = localStorage.getItem("arrNhanVien");
-    arrNhanVien = JSON.parse(strNhanVien);
-    renderTableSinhVien(arrNhanVien);
-  }
-};
-LoadLocalStorage();
+// window.LoadLocalStorage = function () {
+//   if (localStorage.getItem("arrNhanVien")) {
+//     //[]
+//     let strNhanVien = localStorage.getItem("arrNhanVien");
+//     arrNhanVien = JSON.parse(strNhanVien);
+//     renderTableNhanVien(arrNhanVien);
+//   }
+// };
+// LoadLocalStorage();
