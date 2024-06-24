@@ -110,7 +110,7 @@ document.querySelector("#btnTimNV").onclick = function (e) {
   let arrNVTimKiem = [];
   //output: arr được filter theo từ khóa
   arrNVTimKiem = arrNhanVien.filter(
-    (nv) => stringToSlug(nv.xepLoai).search(tuKhoa) !== -1
+    (nv) => stringToSlug(nv.loaiNhanVien).search(tuKhoa) !== -1
   );
   console.log(arrNVTimKiem);
   //sau khi filter thì dùng mảng kết quả render lại table
@@ -123,12 +123,12 @@ window.saveLocalstorage = function () {
   localStorage.setItem("arrNhanVien", strNhanVien);
 };
 
-// window.LoadLocalStorage = function () {
-//   if (localStorage.getItem("arrNhanVien")) {
-//     //[]
-//     let strNhanVien = localStorage.getItem("arrNhanVien");
-//     arrNhanVien = JSON.parse(strNhanVien);
-//     renderTableNhanVien(arrNhanVien);
-//   }
-// };
-// LoadLocalStorage();
+window.LoadLocalStorage = function () {
+  if (localStorage.getItem("arrNhanVien")) {
+    //[]
+    let strNhanVien = localStorage.getItem("arrNhanVien");
+    arrNhanVien = JSON.parse(strNhanVien);
+    renderTableNhanVien(arrNhanVien);
+  }
+};
+LoadLocalStorage();
